@@ -1,0 +1,11 @@
+{
+    \"Name\" : \"Qore\",
+    \"Version\" : \"0.0.1\",
+    \"CompatVersion\" : \"0.0.1\",
+    \"Vendor\" : \"Petr Vanek\",
+    \"Copyright\" : \"Petr Vanek\",
+    \"License\" : \"MIT\",
+    \"Description\" : \"Qore language plugin\",
+    \"Url\" : \"http://qore.org\",
+    $$dependencyList
+}
