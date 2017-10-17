@@ -1,5 +1,6 @@
 #include "qoreplugin.h"
 #include "qoreconstants.h"
+#include "editor/qoreeditorfactory.h"
 
 #include <coreplugin/icore.h>
 #include <coreplugin/icontext.h>
@@ -41,6 +42,7 @@ bool QorePlugin::initialize(const QStringList &arguments, QString *errorString)
     Q_UNUSED(arguments)
     Q_UNUSED(errorString)
 
+    // actions
     Core::ActionContainer *menu = Core::ActionManager::createMenu(Constants::MENU_ID);
     menu->menu()->setTitle(tr("Qore Language"));
 
@@ -58,6 +60,10 @@ bool QorePlugin::initialize(const QStringList &arguments, QString *errorString)
     menu->addAction(cmd);
 
     Core::ActionManager::actionContainer(Core::Constants::M_TOOLS)->addMenu(menu);
+
+    // objects, factories
+    //ProjectExplorer::ToolChainManager::registerLanguage(Qore::Constants::LANGUAGE_ID, Qore::Constants::LANGUAGE_NAME);
+    addAutoReleasedObject(new QoreEditorFactory);
 
     return true;
 }

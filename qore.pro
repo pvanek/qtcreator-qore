@@ -1,12 +1,20 @@
 DEFINES += QORE_LIBRARY
 
 # Qore files
+RESOURCES += qore.qrc
 
-SOURCES += qoreplugin.cpp
+SOURCES += qoreplugin.cpp \
+        editor/qoreeditorfactory.cpp \
+        editor/qoredocument.cpp
 
 HEADERS += qoreplugin.h \
         qore_global.h \
-        qoreconstants.h
+        qoreconstants.h \
+        editor/qoreeditorfactory.h \
+        editor/qoredocument.h
+
+DISTFILES += Qore.json.in \
+        editor/generic-highlighter/qore.xml
 
 # Qt Creator linking
 
@@ -37,7 +45,7 @@ QTC_LIB_DEPENDS += \
     # nothing here at this time
 
 QTC_PLUGIN_DEPENDS += \
-    coreplugin
+    coreplugin projectexplorer texteditor
 
 QTC_PLUGIN_RECOMMENDS += \
     # optional plugin dependencies. nothing here at this time
@@ -45,3 +53,12 @@ QTC_PLUGIN_RECOMMENDS += \
 ###### End _dependencies.pri contents ######
 
 include($$IDE_SOURCE_TREE/src/qtcreatorplugin.pri)
+
+
+# copy static files
+syntaxfile.commands = $(COPY_DIR) $$PWD/editor/generic-highlighter/qore.xml $$IDE_BUILD_TREE/share/qtcreator/generic-highlighter
+first.depends = $(first) syntaxfile
+export(first.depends)
+export(syntaxfile.commands)
+QMAKE_EXTRA_TARGETS += first syntaxfile
+
