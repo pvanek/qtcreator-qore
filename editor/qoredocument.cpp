@@ -92,12 +92,9 @@ QoreDocument::QoreDocument()
     setId(Qore::Constants::EDITOR_ID);
     setMimeType(Qore::Constants::MIMETYPE);
 
-    //setSyntaxHighlighter(new QoreHighlighter());
-    //setIndenter(new CppTools::QoreStyleIndenter);
-
     m_timer.setInterval(100000);
     connect(&m_timer, &QTimer::timeout,
-            this, &QoreDocument::m_timer_timeout); // TODO/FIXME: real timer handling like in QMLJS
+            this, &QoreDocument::m_timer_timeout);
 }
 
 void QoreDocument::m_timer_timeout()

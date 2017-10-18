@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<snippets>
+
+<snippet group="Qore" trigger="namespace" id="qore_namespace">namespace $name$ {
+    $$
+}</snippet>
+
+<snippet group="Qore" trigger="sub" id="qore_sub">auto sub $name$()
+{
+    $$
+}
+</snippet>
+
+<snippet group="Qore" trigger="class" id="qore_genericclass">
+#! doc for $name$
+/** description for $name$
+ */
+class $name$
+{
+    public {
+    }
+
+    private {
+    }
+
+    #! doc for constructor
+    /** description for constructor
+      */
+    constructor()
+    {
+        $$
+    }
+
+} # class $name$
+</snippet>
+
+
+<snippet group="Qore" trigger="if" id="qore_if">if ($condition$) {
+    $$
+}</snippet>
+<snippet group="Qore" trigger="if" id="qore_ifandelse" complement="and else">if ($condition$) {
+    $$
+} else {
+}</snippet>
+<snippet group="Qore" trigger="else" id="qore_else" >else {
+    $$
+}</snippet>
+<snippet group="Qore" trigger="else" id="qore_elsewithif" complement="with if">else if ($condition$) {
+    $$
+}</snippet>
+
+<snippet group="Qore" trigger="for" id="qore_for">for (int $var$ = 0; $var$ &lt; $total$; ++$var$) {
+    $$
+}</snippet>
+
+<snippet group="Qore" trigger="foreach" id="qore_foreach">foreach my auto $var$ in ($container$) {
+    $$
+}</snippet>
+
+<snippet group="Qore" trigger="switch" id="qore_switch">switch ($control$) {
+    case $value$:
+        $$
+        break;
+    default:
+        break;
+}</snippet>
+
+<snippet group="Qore" trigger="while" id="qore_while">while ($condition$) {
+    $$
+}</snippet>
+
+<snippet group="Qore" trigger="do" id="qore_do">do {
+    $$
+} while ($condition$);
+</snippet>
+
+<snippet group="Qore" trigger="throw" id="qore_throw">throw $name$, $description$;
+</snippet>
+
+
+<snippet group="Qore" trigger="try" id="qore_trycatch" complement="and catch">try {
+    $$
+} catch (hash ex) {
+}</snippet>
+
+<snippet group="Qore" trigger="on_error" id="qore_on_error">on_error {
+    $$
+}
+</snippet>
+<snippet group="Qore" trigger="on_success" id="qore_on_success">on_success {
+    $$
+}
+</snippet>
+<snippet group="Qore" trigger="on_exit" id="qore_on_exit">on_exit {
+    $$
+}
+</snippet>
+
+
+<snippet group="Qore" trigger="HashIterator" id="qore_hashiterator">HashIterator $name$($hash$);
+while (it.next()) {
+    $$
+}
+</snippet>
+
+<snippet group="Qore" trigger="ListIterator" id="qore_listterator">ListIterator $name$($hash$);
+while (it.next()) {
+    $$
+}
+</snippet>
+
+
+</snippets>

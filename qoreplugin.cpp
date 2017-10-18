@@ -10,6 +10,8 @@
 #include <coreplugin/actionmanager/actioncontainer.h>
 #include <coreplugin/coreconstants.h>
 
+#include <texteditor/snippets/snippetprovider.h>
+
 #include <qore/Qore.h>
 
 #include <QAction>
@@ -70,6 +72,11 @@ bool QorePlugin::initialize(const QStringList &arguments, QString *errorString)
     //ProjectExplorer::ToolChainManager::registerLanguage(Qore::Constants::LANGUAGE_ID, Qore::Constants::LANGUAGE_NAME);
     addAutoReleasedObject(new QoreEditorFactory);
     addAutoReleasedObject(new QoreOutlineFactory);
+
+
+    // more registrations
+    TextEditor::SnippetProvider::registerGroup(Qore::Constants::SNIPPETSGROUPID,
+                                               tr("Qore", "SnippetProvider"));
 
     return true;
 }

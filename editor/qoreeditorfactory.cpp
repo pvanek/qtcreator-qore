@@ -5,6 +5,7 @@
 
 #include "qoredocument.h"
 #include "qoreeditor.h"
+#include "qorecompletionassistprovider.h"
 
 #include <texteditor/texteditoractionhandler.h>
 #include <texteditor/texteditorconstants.h>
@@ -47,6 +48,8 @@ QoreEditorFactory::QoreEditorFactory()
 //    setSyntaxHighlighterCreator([]() {
 //        return new QoreHighlighter;
 //    });
+    setCompletionAssistProvider(new QoreCompletionAssistProvider);
+
     setCommentDefinition(CommentDefinition("#", "/*", "*/"));
     setParenthesesMatchingEnabled(true);
     setMarksVisible(false);

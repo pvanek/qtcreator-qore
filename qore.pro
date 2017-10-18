@@ -10,7 +10,8 @@ SOURCES += qoreplugin.cpp \
     editor/outline/qoreoutlinewidget.cpp \
     editor/qoreeditor.cpp \
     editor/outline/qoreoutlinetreeview.cpp \
-    editor/outline/qoreoutlinemodel.cpp
+    editor/outline/qoreoutlinemodel.cpp \
+    editor/qorecompletionassistprovider.cpp
 
 HEADERS += qoreplugin.h \
         qore_global.h \
@@ -21,10 +22,12 @@ HEADERS += qoreplugin.h \
     editor/outline/qoreoutlinewidget.h \
     editor/qoreeditor.h \
     editor/outline/qoreoutlinetreeview.h \
-    editor/outline/qoreoutlinemodel.h
+    editor/outline/qoreoutlinemodel.h \
+    editor/qorecompletionassistprovider.h
 
 DISTFILES += Qore.json.in \
-        editor/generic-highlighter/qore.xml
+        editor/generic-highlighter/qore.xml \
+        editor/snippets/qore.xml
 
 INCLUDEPATH += $$PWD\
         editor \
@@ -73,8 +76,14 @@ include($$IDE_SOURCE_TREE/src/qtcreatorplugin.pri)
 
 # copy static files
 syntaxfile.commands = $(COPY_DIR) $$PWD/editor/generic-highlighter/qore.xml $$IDE_BUILD_TREE/share/qtcreator/generic-highlighter
-first.depends = $(first) syntaxfile
-export(first.depends)
 export(syntaxfile.commands)
-QMAKE_EXTRA_TARGETS += first syntaxfile
+
+snippetfile.commands = $(COPY_DIR) $$PWD/editor/snippets/qore.xml $$IDE_BUILD_TREE/share/qtcreator/snippets
+export(snippetfile.commands)
+
+first.depends = $(first) syntaxfile
+first.depends += $(first) snippetfile
+export(first.depends)
+
+QMAKE_EXTRA_TARGETS += first syntaxfile snippetfile
 

@@ -14,5 +14,8 @@ const char ICON_PATH[] = ":/images/qore.png";
 const char LANGUAGE_ID[] = "Qore";
 const char MIMETYPE[] = "text/x-qore";
 
+const char SNIPPETSGROUPID[] = "Qore";
+
+
 } // namespace Qore
 } // namespace Constants
