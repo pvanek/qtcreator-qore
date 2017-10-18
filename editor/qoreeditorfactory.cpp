@@ -1,9 +1,10 @@
 #include "qoreeditorfactory.h"
 
-#include "../qoreconstants.h"
-#include "../qoreplugin.h"
+#include "qoreconstants.h"
+#include "qoreplugin.h"
 
 #include "qoredocument.h"
+#include "qoreeditor.h"
 
 #include <texteditor/texteditoractionhandler.h>
 #include <texteditor/texteditorconstants.h>
@@ -26,13 +27,16 @@ QoreEditorFactory::QoreEditorFactory()
 
     setEditorActionHandlers(TextEditorActionHandler::Format
                             | TextEditorActionHandler::UnCommentSelection
-                            | TextEditorActionHandler::UnCollapseAll);
+                            | TextEditorActionHandler::UnCollapseAll
+                            | TextEditorActionHandler::FollowSymbolUnderCursor
+                           );
 
     setEditorWidgetCreator([]{
         auto result = new TextEditorWidget();
         result->setLanguageSettingsId(Qore::Constants::LANGUAGE_ID);
         return result;
     });
+    setEditorCreator([]() { return new QoreEditor; });
     setDocumentCreator([]() {
         return new QoreDocument;
     });

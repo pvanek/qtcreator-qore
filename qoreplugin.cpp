@@ -1,6 +1,7 @@
 #include "qoreplugin.h"
 #include "qoreconstants.h"
 #include "editor/qoreeditorfactory.h"
+#include "editor/outline/qoreoutlinefactory.h"
 
 #include <coreplugin/icore.h>
 #include <coreplugin/icontext.h>
@@ -8,6 +9,8 @@
 #include <coreplugin/actionmanager/command.h>
 #include <coreplugin/actionmanager/actioncontainer.h>
 #include <coreplugin/coreconstants.h>
+
+#include <qore/Qore.h>
 
 #include <QAction>
 #include <QMessageBox>
@@ -22,12 +25,14 @@ namespace Internal {
 QorePlugin::QorePlugin()
 {
     // Create your members
+    qore_init();
 }
 
 QorePlugin::~QorePlugin()
 {
     // Unregister objects from the plugin manager's object pool
     // Delete members
+    qore_cleanup();
 }
 
 bool QorePlugin::initialize(const QStringList &arguments, QString *errorString)
@@ -64,6 +69,7 @@ bool QorePlugin::initialize(const QStringList &arguments, QString *errorString)
     // objects, factories
     //ProjectExplorer::ToolChainManager::registerLanguage(Qore::Constants::LANGUAGE_ID, Qore::Constants::LANGUAGE_NAME);
     addAutoReleasedObject(new QoreEditorFactory);
+    addAutoReleasedObject(new QoreOutlineFactory);
 
     return true;
 }

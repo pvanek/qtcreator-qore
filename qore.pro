@@ -5,16 +5,32 @@ RESOURCES += qore.qrc
 
 SOURCES += qoreplugin.cpp \
         editor/qoreeditorfactory.cpp \
-        editor/qoredocument.cpp
+        editor/qoredocument.cpp \
+    editor/outline/qoreoutlinefactory.cpp \
+    editor/outline/qoreoutlinewidget.cpp \
+    editor/qoreeditor.cpp \
+    editor/outline/qoreoutlinetreeview.cpp \
+    editor/outline/qoreoutlinemodel.cpp
 
 HEADERS += qoreplugin.h \
         qore_global.h \
         qoreconstants.h \
         editor/qoreeditorfactory.h \
-        editor/qoredocument.h
+        editor/qoredocument.h \
+    editor/outline/qoreoutlinefactory.h \
+    editor/outline/qoreoutlinewidget.h \
+    editor/qoreeditor.h \
+    editor/outline/qoreoutlinetreeview.h \
+    editor/outline/qoreoutlinemodel.h
 
 DISTFILES += Qore.json.in \
         editor/generic-highlighter/qore.xml
+
+INCLUDEPATH += $$PWD\
+        editor \
+        editor/outline
+
+LIBS += -lqore
 
 # Qt Creator linking
 
