@@ -11,7 +11,8 @@ SOURCES += qoreplugin.cpp \
     editor/qoreeditor.cpp \
     editor/outline/qoreoutlinetreeview.cpp \
     editor/outline/qoreoutlinemodel.cpp \
-    editor/qorecompletionassistprovider.cpp
+    editor/qorecompletionassistprovider.cpp \
+    editor/qoreindenter.cpp
 
 HEADERS += qoreplugin.h \
         qore_global.h \
@@ -23,7 +24,8 @@ HEADERS += qoreplugin.h \
     editor/qoreeditor.h \
     editor/outline/qoreoutlinetreeview.h \
     editor/outline/qoreoutlinemodel.h \
-    editor/qorecompletionassistprovider.h
+    editor/qorecompletionassistprovider.h \
+    editor/qoreindenter.h
 
 DISTFILES += Qore.json.in \
         editor/generic-highlighter/qore.xml \

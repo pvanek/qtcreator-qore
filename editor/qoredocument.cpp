@@ -2,6 +2,8 @@
 
 #include "qoreconstants.h"
 
+#include "qoreindenter.h"
+
 #include <qore/Qore.h>
 
 #include <QtDebug>
@@ -91,6 +93,7 @@ QoreDocument::QoreDocument()
 {
     setId(Qore::Constants::EDITOR_ID);
     setMimeType(Qore::Constants::MIMETYPE);
+    // TODO setIndenter(new QoreIndenter);
 
     m_timer.setInterval(100000);
     connect(&m_timer, &QTimer::timeout,
