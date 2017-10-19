@@ -1,0 +1,102 @@
+{
+    "version": 1,
+    "supportedProjectTypes": [ ],
+    "id": "Q.QoreClass",
+    "category": "Q.Qore",
+    "trDescription": "Creates new Qore class file.",
+    "trDisplayName": "Qore Class",
+    "trDisplayCategory": "Qore",
+    "iconText": "qc",
+    "enabled": "%{JS: [ %{Plugins} ].indexOf('Qore') >= 0}",
+
+    "options":
+    [
+        { "key": "Base", "value":"%{JS: ( '%{BaseCB}' === '' ) ? '%{BaseEdit}' : '%{BaseCB}'}" }
+    ],
+
+    "pages":
+    [
+        {
+            "trDisplayName": "Define Class",
+            "trShortTitle": "Details",
+            "typeId": "Fields",
+            "data" :
+            [
+                {
+                    "name": "Class",
+                    "trDisplayName": "Class name:",
+                    "mandatory": true,
+                    "type": "LineEdit",
+                    "data": { "validator": "^(?:[^\\d\\W]\\w*|)$" }
+                },
+                {
+                    "name": "BaseCB",
+                    "trDisplayName": "Base class:",
+                    "type": "ComboBox",
+                    "data":
+                    {
+                        "items": [ { "trKey": "<Custom>", "value": "" },
+                                   "Qore::SQL::AbstractDatasource",
+                                   "Qore::AbstractIterator",
+                                   ""
+                                 ]
+                    }
+                },
+                {
+                    "name": "BaseEdit",
+                    "type": "LineEdit",
+                    "enabled": "%{JS: '%{BaseCB}' === ''}",
+                    "mandatory": false,
+                    "data": { "trText": "%{BaseCB}" }
+                },
+
+
+
+                {
+                    "name": "Sp1",
+                    "type": "Spacer",
+                    "data": { "size": 6 }
+                },
+
+
+                {
+                    "name": "FileName",
+                    "type": "LineEdit",
+                    "trDisplayName": "Source file:",
+                    "mandatory": true,
+                    "data": { "trText": "%{JS: Util.fileName('%{Class}', '%{JS: Util.preferredSuffix('text/x-qore')}')}" }
+                },
+                {
+                    "name": "TargetPath",
+                    "type": "PathChooser",
+                    "trDisplayName": "Path:",
+                    "mandatory": true,
+                    "data":
+                    {
+                        "kind": "existingDirectory",
+                        "basePath": "%{InitialPath}",
+                        "path": "%{InitialPath}"
+                    }
+                }
+            ]
+        },
+        {
+            "trDisplayName": "Project Management",
+            "shortTitle": "Summary",
+            "typeId": "Summary"
+        }
+    ],
+
+    "generators":
+    [
+        {
+            "typeId": "File",
+            "data":
+            {
+                "source": "file.qc",
+                "target": "%{FileName}",
+                "openInEditor": true
+            }
+        }
+    ]
+}

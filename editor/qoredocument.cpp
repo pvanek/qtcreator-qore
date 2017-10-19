@@ -122,8 +122,7 @@ QoreOutlineItem* QoreDocument::outline()
             "AstParser p();\n"
             "our string filecontent;\n"
             "auto tree = p.parseString(filecontent);\n"
-            "our auto nodes = tree.getNodesInfo();\n"
-            "our auto debug = sprintf(\"%N\", tree.getNodesInfo());\n";
+            "our auto nodes = exists tree ? tree.getNodesInfo() : list();\n";
 
     ExceptionSink xsink, wsink;
 
@@ -143,7 +142,6 @@ QoreOutlineItem* QoreDocument::outline()
     xsink.handleWarnings();
 
     bool check;
-    QoreStringValueHelper debug(pgm->getGlobalVariableValue("debug", check));
 
     AbstractQoreNode* nodes = pgm->getGlobalVariableValue("nodes", check);
     if (nodes->getType() != NT_LIST)

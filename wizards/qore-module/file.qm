@@ -1,0 +1,19 @@
+# -*- mode: qore; indent-tabs-mode: nil -*-
+
+%require-types
+%new-style
+%enable-all-warnings
+
+module %{Module} {
+    version = "0.1";
+    desc = "";
+    author = "";
+    url = "";
+    license = "";
+}
+
+#! public %{Module} namespace contains all relevant stuff for this module
+public namespace %{Module} {
+
+} # namespace %{Module}
+

@@ -1,0 +1,28 @@
+#!/usr/bin/env qore
+# -*- mode: qore; indent-tabs-mode: nil -*-
+
+%require-types
+%new-style
+%enable-all-warnings
+
+%requires QUnit
+
+%exec-class Main
+
+
+class Main inherits QUnit::QTest
+{
+    constructor() : QUnit::QTest("test", "1.0")
+    {
+        addTestCase("a test", \test());
+
+        set_return_value(main());
+    }
+
+    private test()
+    {
+        assertEx(True, False, "always failing assertion");
+    }
+
+} # class Main
+

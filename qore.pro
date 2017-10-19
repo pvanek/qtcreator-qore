@@ -27,7 +27,15 @@ HEADERS += qoreplugin.h \
 
 DISTFILES += Qore.json.in \
         editor/generic-highlighter/qore.xml \
-        editor/snippets/qore.xml
+        editor/snippets/qore.xml \
+        wizards/qore-class/wizard.json \
+        wizards/qore-class/file.qc \
+        wizards/qore-script/file.q \
+        wizards/qore-script/wizard.json \
+        wizards/qore-qtest/file.qtest \
+        wizards/qore-qtest/wizard.json \
+        wizards/qore-module/file.qm \
+        wizards/qore-module/wizard.json
 
 INCLUDEPATH += $$PWD\
         editor \
@@ -81,9 +89,11 @@ export(syntaxfile.commands)
 snippetfile.commands = $(COPY_DIR) $$PWD/editor/snippets/qore.xml $$IDE_BUILD_TREE/share/qtcreator/snippets
 export(snippetfile.commands)
 
-first.depends = $(first) syntaxfile
-first.depends += $(first) snippetfile
+wizards.commands = $(COPY_DIR) $$PWD/wizards/ $$IDE_BUILD_TREE/share/qtcreator/templates/
+export(wizards.commands)
+
+first.depends = $(first) syntaxfile snippetfile wizards
 export(first.depends)
 
-QMAKE_EXTRA_TARGETS += first syntaxfile snippetfile
+QMAKE_EXTRA_TARGETS += first syntaxfile snippetfile wizards
 

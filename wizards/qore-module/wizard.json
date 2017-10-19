@@ -1,0 +1,72 @@
+{
+    "version": 1,
+    "supportedProjectTypes": [ ],
+    "id": "Q.QoreModule",
+    "category": "Q.Qore",
+    "trDescription": "Creates new Qore user module.",
+    "trDisplayName": "Qore Module",
+    "trDisplayCategory": "Qore",
+    "iconText": "qc",
+    "enabled": "%{JS: [ %{Plugins} ].indexOf('Qore') >= 0}",
+
+    "options":
+    [
+        { "key": "Base", "value":"%{JS: ( '%{BaseCB}' === '' ) ? '%{BaseEdit}' : '%{BaseCB}'}" }
+    ],
+
+    "pages":
+    [
+        {
+            "trDisplayName": "Define Module",
+            "trShortTitle": "Details",
+            "typeId": "Fields",
+            "data" :
+            [
+                {
+                    "name": "Module",
+                    "trDisplayName": "Module name:",
+                    "mandatory": true,
+                    "type": "LineEdit",
+                    "data": { "validator": "^(?:[^\\d\\W]\\w*|)$" }
+                },
+                {
+                    "name": "FileName",
+                    "type": "LineEdit",
+                    "trDisplayName": "Source file:",
+                    "mandatory": true,
+                    "data": { "trText": "%{Module}.qm" }
+                },
+                {
+                    "name": "TargetPath",
+                    "type": "PathChooser",
+                    "trDisplayName": "Path:",
+                    "mandatory": true,
+                    "data":
+                    {
+                        "kind": "existingDirectory",
+                        "basePath": "%{InitialPath}",
+                        "path": "%{InitialPath}"
+                    }
+                }
+            ]
+        },
+        {
+            "trDisplayName": "Project Management",
+            "shortTitle": "Summary",
+            "typeId": "Summary"
+        }
+    ],
+
+    "generators":
+    [
+        {
+            "typeId": "File",
+            "data":
+            {
+                "source": "file.qm",
+                "target": "%{FileName}",
+                "openInEditor": true
+            }
+        }
+    ]
+}

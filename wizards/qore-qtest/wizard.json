@@ -1,0 +1,38 @@
+{
+    "version": 1,
+    "supportedProjectTypes": [ ],
+    "id": "Q.QoreTest",
+    "category": "Q.Qore",
+    "trDescription": "Creates new Qore QTest file.",
+    "trDisplayName": "Qore Test",
+    "trDisplayCategory": "Qore",
+    "iconText": "q",
+    "enabled": "%{JS: [ %{Plugins} ].indexOf('Qore') >= 0}",
+
+    "pages":
+    [
+        {
+            "trDisplayName": "Location",
+            "trShortTitle": "Location",
+            "typeId": "File"
+        },
+        {
+            "trDisplayName": "Project Management",
+            "shortTitle": "Summary",
+            "typeId": "Summary"
+        }
+    ],
+
+    "generators":
+    [
+        {
+            "typeId": "File",
+            "data":
+            {
+                "source": "file.qtest",
+                "target": "%{FileName}",
+                "openInEditor": true
+            }
+        }
+    ]
+}
