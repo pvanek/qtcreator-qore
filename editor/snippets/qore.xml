@@ -98,13 +98,13 @@ class $name$
 
 
 <snippet group="Qore" trigger="HashIterator" id="qore_hashiterator">HashIterator $name$($hash$);
-while (it.next()) {
+while ($name$.next()) {
     $$
 }
 </snippet>
 
 <snippet group="Qore" trigger="ListIterator" id="qore_listterator">ListIterator $name$($hash$);
-while (it.next()) {
+while ($name$.next()) {
     $$
 }
 </snippet>
