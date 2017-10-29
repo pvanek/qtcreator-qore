@@ -9,9 +9,31 @@
 #include <QtDebug>
 #include <QDateTime>
 #include <QTextDocument>
+#include <QIcon>
 
 namespace Qore {
 namespace Internal {
+
+// code-block.svg  code-class.svg  code-context.svg  code-function.svg  code-typedef.svg  code-variable.svg
+std::map<int, QString> icon_map = {
+    {1, "code-class"},
+    {3, "code-variable"}, // TODO/FIXME
+    {4, "code-function"},
+    {8, "code-context"}
+};
+
+std::map<int, QString> type_map = {
+    {1, "Class"},
+    {3, "Constant"},
+    {4, "Function"},
+    {8, "Namespace"}
+};
+/*
+kinds[1] = "Class"; // ADK_Class
+kinds[3] = "Constant"; // ADK_Constant
+kinds[4] = "Function"; // ADK_Function
+kinds[8] = "Namespace"; // ADK_Namespace
+*/
 
 
 QoreOutlineItem::QoreOutlineItem(int itemType,
@@ -65,9 +87,11 @@ QVariant QoreOutlineItem::data(int role) const
     case Qt::DisplayRole:
         return m_itemText;
     case Qt::ToolTipRole:
-        return m_itemType;
-    //case Qt::DecorationRole:
-        //return QPixmap(":/images/qore.png"); // TODO/FIXME: real images + cache!
+        return type_map[m_itemType];
+    case Qt::DecorationRole:
+        return QIcon::fromTheme(icon_map[m_itemType],
+                                QIcon(QString(":/images/%1.png").arg(icon_map[m_itemType]))
+                               );
     case Qt::UserRole:
         return m_row;
     default:
@@ -163,33 +187,7 @@ QoreOutlineItem* QoreDocument::outline()
 
 void QoreDocument::addListToItem(QoreOutlineItem *item, QoreListNode *list)
 {
-    QHash<int, QString> kinds;
-    kinds[3] = "Namespace";
-    kinds[5] = "Class";
-    kinds[6] = "Method";
-    kinds[9] = "Constructor";
-    kinds[12] = "Function";
-
-    //ASYK_None = 0,
-    //ASYK_File = 1,
-    //ASYK_Module = 2,
-    //ASYK_Namespace = 3,
-    //ASYK_Package = 4,
-    //ASYK_Class = 5,
-    //ASYK_Method = 6,
-    //ASYK_Property = 7,
-    //ASYK_Field = 8,
-    //ASYK_Constructor = 9,
-    //ASYK_Enum = 10,
-    //ASYK_Interface = 11,
-    //ASYK_Function = 12,
-    //ASYK_Variable = 13,
-    //ASYK_Constant = 14,
-    //ASYK_String = 15,
-    //ASYK_Number = 16,
-    //ASYK_Boolean = 17,
-    //ASYK_Array = 18,
-
+    // https://gist.github.com/omusil24/97769ae831478aac57880a84331424ec
 
     for (qore_size_t i = 0; i < list->size(); ++i)
     {
@@ -197,8 +195,6 @@ void QoreDocument::addListToItem(QoreOutlineItem *item, QoreListNode *list)
         if (n->getType() == NT_HASH)
         {
             QoreHashNode *h = reinterpret_cast<QoreHashNode*>(n);
-QoreStringValueHelper debug(h);
-qDebug() << "NODE" << h << debug->getBuffer();
             bool check;
             AbstractQoreNode *val = h->getKeyValueExistence("nodetype", check);
             if (!check)
@@ -206,24 +202,24 @@ qDebug() << "NODE" << h << debug->getBuffer();
                 continue;
             }
 
-            if (val->getAsInt() != 1 || val->getAsInt() != 4) // ANT_Declaration
+            if (val->getAsInt() != 1) // || val->getAsInt() != 4) // ANT_Declaration
             {
-                qDebug() << "not a declaration" << val->getAsInt();
+                //qDebug() << "not a declaration" << val->getAsInt();
                 continue;
             }
 
             int64 kind = h->getKeyValue("kind")->getAsInt();
-            if (kinds.contains(kind))
+            if (type_map.count(kind))
             {
                 QoreHashNode *namenode = reinterpret_cast<QoreHashNode*>(h->getKeyValue("name"));
 
                 QString name = QString::fromUtf8(QoreStringValueHelper(namenode->getKeyValue("name"))->getBuffer());
-qDebug() << "name" << name;
                 QoreHashNode *locnode = reinterpret_cast<QoreHashNode*>(namenode->getKeyValue("loc"));
                 int line = locnode->getKeyValue("start_line")->getAsInt();
 
                 QoreOutlineItem *new_item = new QoreOutlineItem(kind, name, line, item);
                 item->appendChild(new_item);
+                //qDebug() << "new_item:" << name << kind << line;
 
                 AbstractQoreNode *l = h->getKeyValueExistence("declarations", check);
                 if (!check)

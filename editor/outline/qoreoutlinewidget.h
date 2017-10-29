@@ -8,13 +8,14 @@ namespace Internal {
 
 class QoreDocument;
 class QoreOutlineModel;
+class QoreEditor;
 
 class QoreOutlineWidget : public TextEditor::IOutlineWidget
 {
     Q_OBJECT
 
 public:
-    QoreOutlineWidget(QWidget *parent = 0);
+    QoreOutlineWidget(QoreEditor * editor, QWidget *parent = 0);
 
     void setDocument(QoreDocument *doc);
 
@@ -25,12 +26,14 @@ public:
 private:
     bool m_enableCursorSync = true;
 
+    QoreEditor *m_editor;
     QoreOutlineTreeView *m_view;
     QoreDocument *m_doc;
     QoreOutlineModel *m_model;
 
 private slots:
     void reloadOutline();
+    void editorGoToLine(const QModelIndex &index);
 };
 
 } // namespace Internal

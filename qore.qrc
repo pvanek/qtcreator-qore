@@ -1,5 +1,11 @@
 <RCC>
     <qresource prefix="/">
         <file>images/qore.png</file>
+        <file>images/code-block.png</file>
+        <file>images/code-class.png</file>
+        <file>images/code-context.png</file>
+        <file>images/code-function.png</file>
+        <file>images/code-typedef.png</file>
+        <file>images/code-variable.png</file>
     </qresource>
 </RCC>

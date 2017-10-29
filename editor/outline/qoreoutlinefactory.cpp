@@ -23,7 +23,7 @@ TextEditor::IOutlineWidget *QoreOutlineFactory::createWidget(Core::IEditor *edit
     QoreDocument *d = qobject_cast<QoreDocument*>(e->document());
     Q_ASSERT(d);
 
-    QoreOutlineWidget *widget = new QoreOutlineWidget();
+    QoreOutlineWidget *widget = new QoreOutlineWidget(e);
     widget->setDocument(d);
     return widget;
 }
